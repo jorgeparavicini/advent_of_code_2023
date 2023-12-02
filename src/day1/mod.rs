@@ -5,6 +5,7 @@ use std::io::BufRead;
 use std::ops::Index;
 use std::path::Path;
 use lazy_static::lazy_static;
+use crate::solver::Solver;
 
 
 lazy_static! {
@@ -66,20 +67,24 @@ lazy_static! {
     };
 }
 
-pub fn solve() {
-    let mut part1result = 0;
-    let mut part2result = 0;
-    if let Ok(lines) = read_lines("resources/day_1_input.txt") {
-        for line in lines {
-            if let Ok(line) = line {
-                part1result += get_calibration_value(&line);
-                part2result += get_part2_calibration_value(&line);
+pub struct Day1Solver;
+
+impl Solver for Day1Solver {
+    fn solve(&self) {
+        let mut part1result = 0;
+        let mut part2result = 0;
+        if let Ok(lines) = read_lines("resources/day_1_input.txt") {
+            for line in lines {
+                if let Ok(line) = line {
+                    part1result += get_calibration_value(&line);
+                    part2result += get_part2_calibration_value(&line);
+                }
             }
         }
-    }
 
-    println!("Solution for part 1 is {part1result}");
-    println!("Solution for part 2 is {part2result}");
+        println!("Solution for part 1 is {part1result}");
+        println!("Solution for part 2 is {part2result}");
+    }
 }
 
 fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
